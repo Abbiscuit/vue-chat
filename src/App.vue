@@ -3,7 +3,7 @@
     <header>
       <h1>Vue Voxer</h1>
       <p>Realtime Voice Chat</p>
-      <p>Be Cool 😎 Have Great Vue (View 🤭)!!!</p>
+      <p>Be Cool 😎</p>
     </header>
     <router-view></router-view>
   </div>
