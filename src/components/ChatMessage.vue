@@ -3,7 +3,9 @@
     {{ message.text }}
     <br />
 
-    <audio v-if="message.audioURL" :src="message.audioURL" controls></audio>
+    <div class="audio-message">
+      <audio class="audio" v-if="message.audioURL" :src="message.audioURL" controls></audio>
+    </div>
 
     <span class="sender">from UID {{ message.sender }}</span>
   </div>
@@ -28,6 +30,14 @@ export default {
   border-radius: 5px;
   padding: 12px;
   display: inline-block;
+}
+
+.audio-message {
+  max-width: 200px;
+}
+
+.audio {
+  width: 100%;
 }
 
 .from-user {

@@ -1,14 +1,16 @@
 <template>
-  <div v-if="user">
-    <p>Logged in as {{ user.uid }}</p>
-    <button @click="signOut()" class="button is-small is-danger is-light">
-      Sign Out
-    </button>
+  <div class="user-profile" v-if="user">
+    <p class="user-profile__title">プロフィール</p>
+
+    <div class="card-panel">
+      <p class="user-profile__id">{{ user.uid }}</p>
+      <button @click="signOut()" class="btn btn-small pink user-profile__button">ログアウト</button>
+    </div>
   </div>
 </template>
 
 <script>
-import { auth } from '../firebase';
+import { auth } from "../firebase";
 export default {
   data() {
     return {
@@ -20,8 +22,19 @@ export default {
       auth.signOut();
     }
   },
-  props: ['user']
+  props: ["user"]
 };
 </script>
 
-<style></style>
+<style scoped>
+.user-profile {
+  width: 100%;
+}
+
+.user-profile__title {
+  word-wrap: break-word;
+  font-size: 24px;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+</style>

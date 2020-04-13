@@ -1,26 +1,20 @@
 <template>
   <div class="chat-list">
-    <p class="menu-label">
-      Chat Rooms
-    </p>
-    <ul class="menu-list">
-      <li v-for="chat of chats" :key="chat.id">
-        <router-link :to="{ name: 'ChatRoom', params: { id: chat.id } }">
-          {{ chat.id }}
-        </router-link>
+    <p class="chat-list__title">チャットルーム</p>
+    <ul class="collection">
+      <li v-for="chat of chats" :key="chat.id" class="collection-item">
+        <router-link :to="{ name: 'ChatRoom', params: { id: chat.id } }">{{ chat.id }}</router-link>
       </li>
     </ul>
 
-    <button @click="createChatRoom()" class="button">
-      Create New Chat Room
-    </button>
+    <button @click="createChatRoom()" class="btn btn-small yellow accent-4 black-text">チャットルームを作成する</button>
   </div>
 </template>
 
 <script>
-import { db } from '../firebase';
+import { db } from "../firebase";
 export default {
-  name: 'ChatList',
+  name: "ChatList",
   data() {
     return {
       chats: []
@@ -28,12 +22,12 @@ export default {
   },
   firestore() {
     return {
-      chats: db.collection('chats').where('owner', '==', this.uid)
+      chats: db.collection("chats").where("owner", "==", this.uid)
     };
   },
   methods: {
     async createChatRoom() {
-      const newChat = await db.collection('chats').add({
+      const newChat = await db.collection("chats").add({
         createdAt: Date.now(),
         owner: this.uid,
         members: [this.uid]
@@ -41,12 +35,13 @@ export default {
       console.log(newChat);
     }
   },
-  props: ['uid']
+  props: ["uid"]
 };
 </script>
 
 <style style="css" scoped>
-.chat-list .menu-list {
-  margin: 0;
+.chat-list .chat-list__title {
+  font-size: 24px;
+  margin-bottom: 8px;
 }
 </style>

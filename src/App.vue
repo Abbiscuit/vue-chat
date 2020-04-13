@@ -1,25 +1,29 @@
 <template>
-  <div id="app" class="section">
-    <header>
-      <h1>Vue Voxer</h1>
-      <p>Realtime Voice Chat</p>
-      <p>Be Cool 😎</p>
-    </header>
-    <router-view></router-view>
+  <div id="app">
+    <Navbar />
+    <div class="container">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script>
-// import { auth } from './firebase';
-console.log("App");
-
+import Navbar from "./components/Navbar";
 export default {
   name: "App",
-  components: {}
+  components: {
+    Navbar
+  }
 };
 </script>
 
 <style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 ul {
   margin: 0;
 }

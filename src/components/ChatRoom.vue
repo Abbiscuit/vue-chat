@@ -1,6 +1,7 @@
 <template>
-  <main class="section">
-    <h3>Welcome to Chat Room {{ chatId }}</h3>
+  <main class="chat-room">
+    <h3 class="chat-room__title">No. {{ chatId }}</h3>
+
     <User #user="{user}">
       <div v-if="user">
         <ul>
@@ -10,9 +11,9 @@
         </ul>
 
         <!-- Audio -->
-        <h5>Record Audio</h5>
+        <h5 class="chat-room__audio-title">ボイスメッセージ</h5>
 
-        <button v-if="!recorder" @click="record()" class="button is-info">Record Voice</button>
+        <button v-if="!recorder" @click="record()" class="btn chat-room__audio-button">録音 🎬</button>
 
         <button v-else @click="stop()" class="button is-danger">Stop</button>
 
@@ -22,14 +23,14 @@
 
         <hr />
 
-        <input v-model="newMessageText" class="input" />
+        <input v-model="newMessageText" class="validate" />
 
         <button
-          class="button is-success"
+          class="btn btn-small pink"
           :disabled="!newMessageText || loading"
           type="text"
           @click="addMessage(user.uid)"
-        >Send</button>
+        >送信</button>
       </div>
 
       <Login v-else />
@@ -138,6 +139,20 @@ export default {
 </script>
 
 <style scoped>
+.chat-room__title {
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+.chat-room__audio-title {
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+.chat-room__audio-button {
+  margin-bottom: 8px;
+}
+
 ul {
   list-style-type: none;
   margin: 0;
