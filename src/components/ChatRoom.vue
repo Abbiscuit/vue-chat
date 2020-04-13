@@ -5,7 +5,7 @@
       <div v-if="user">
         <ul>
           <li v-for="message of messages" :key="message.id">
-            {{ message.text }}
+            <ChatMessage :message="message" :owner="user.uid === message.sender" />
           </li>
         </ul>
 
@@ -16,9 +16,7 @@
           :disabled="!newMessageText || loading"
           type="text"
           @click="addMessage(user.uid)"
-        >
-          Send
-        </button>
+        >Send</button>
       </div>
 
       <Login v-else />
@@ -29,19 +27,21 @@
 </template>
 
 <script>
-import User from './User';
-import Login from './Login';
-import { db } from '../firebase';
+import User from "./User";
+import Login from "./Login";
+import ChatMessage from "./ChatMessage";
+import { db } from "../firebase";
 
 export default {
-  name: 'ChatRoom',
+  name: "ChatRoom",
   components: {
     User,
-    Login
+    Login,
+    ChatMessage
   },
   data() {
     return {
-      newMessageText: '',
+      newMessageText: "",
       loading: false,
       messages: []
     };
@@ -51,12 +51,12 @@ export default {
       return this.$route.params.id;
     },
     messagesCollection() {
-      return db.doc(`chats/${this.chatId}`).collection('messages');
+      return db.doc(`chats/${this.chatId}`).collection("messages");
     }
   },
   firestore() {
     return {
-      messages: this.messagesCollection.orderBy('createdAt').limitToLast(10)
+      messages: this.messagesCollection.orderBy("createdAt").limitToLast(10)
     };
   },
   methods: {
@@ -71,10 +71,26 @@ export default {
         createdAt: Date.now()
       });
       this.loading = false;
-      this.newMessageText = '';
+      this.newMessageText = "";
     }
   }
 };
 </script>
 
-<style></style>
+<style scoped>
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 500px;
+  background-color: #efefef;
+  padding: 10px;
+  border-radius: 0;
+}
+
+li {
+  display: flex;
+}
+</style>
